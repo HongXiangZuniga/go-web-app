@@ -10,12 +10,15 @@ import (
 var (
 	ginEngine      *gin.Engine
 	ginStatusGroup *gin.RouterGroup
+	ginViewGroup   *gin.RouterGroup
 )
 
 func configHttp() {
 	ginEngine = configGinEngine()
 	ginStatusGroup = configStatusGroup()
+	ginViewGroup = configViewGroup()
 	configStatusHandler()
+	configViewHandler()
 }
 
 func configGinEngine() *gin.Engine {
@@ -27,6 +30,8 @@ func configGinEngine() *gin.Engine {
 	} else {
 		engine = gin.Default()
 	}
+	engine.LoadHTMLGlob("pkg/template/*.html")
+	engine.Static("/static", "./pkg/static")
 	return engine
 }
 
@@ -38,7 +43,16 @@ func configStatusGroup() *gin.RouterGroup {
 	return ginEngine.Group("/status")
 }
 
+func configViewGroup() *gin.RouterGroup {
+	return ginEngine.Group("/view")
+}
+
 func configStatusHandler() {
 	statusHandler := handler.NewStatusHandler()
 	statusHandler.RegisterHandler(ginStatusGroup)
+}
+
+func configViewHandler() {
+	viewhander := handler.NewViewHanlder()
+	viewhander.RegisterHandler(ginViewGroup)
 }
