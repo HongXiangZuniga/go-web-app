@@ -12,7 +12,7 @@ func NewStatusHandler() GinHandler {
 }
 
 func (impl *statusHandler) RegisterHandler(router *gin.RouterGroup) {
-	router.GET("/", impl.Get)
+	router.GET("", impl.Get)
 }
 
 func (impl *statusHandler) Get(ctx *gin.Context) {

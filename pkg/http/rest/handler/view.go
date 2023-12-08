@@ -1,6 +1,10 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 type Viewhandler struct {
 }
@@ -10,9 +14,9 @@ func NewViewHanlder() GinHandler {
 }
 
 func (impl *Viewhandler) RegisterHandler(router *gin.RouterGroup) {
-	router.GET("/login", impl.Get)
+	router.GET("/login", impl.GetLogin)
 }
 
-func (impl *Viewhandler) Get(ctx *gin.Context) {
-	ctx.JSON(204, nil)
+func (impl *Viewhandler) GetLogin(ctx *gin.Context) {
+	ctx.HTML(http.StatusOK, "login.html", gin.H{})
 }

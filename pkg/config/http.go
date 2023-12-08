@@ -11,14 +11,17 @@ var (
 	ginEngine      *gin.Engine
 	ginStatusGroup *gin.RouterGroup
 	ginViewGroup   *gin.RouterGroup
+	ginAuthGroup   *gin.RouterGroup
 )
 
 func configHttp() {
 	ginEngine = configGinEngine()
 	ginStatusGroup = configStatusGroup()
 	ginViewGroup = configViewGroup()
+	ginAuthGroup = configAuthGroup()
 	configStatusHandler()
 	configViewHandler()
+	configAuthHandler()
 }
 
 func configGinEngine() *gin.Engine {
@@ -31,7 +34,8 @@ func configGinEngine() *gin.Engine {
 		engine = gin.Default()
 	}
 	engine.LoadHTMLGlob("pkg/template/*.html")
-	engine.Static("/static", "./pkg/static")
+	engine.Static("/static/css", "./pkg/static/css")
+	engine.Static("/static/js", "./pkg/static/js")
 	return engine
 }
 
@@ -44,7 +48,11 @@ func configStatusGroup() *gin.RouterGroup {
 }
 
 func configViewGroup() *gin.RouterGroup {
-	return ginEngine.Group("/view")
+	return ginEngine.Group("/")
+}
+
+func configAuthGroup() *gin.RouterGroup {
+	return ginEngine.Group("/auth")
 }
 
 func configStatusHandler() {
@@ -55,4 +63,9 @@ func configStatusHandler() {
 func configViewHandler() {
 	viewhander := handler.NewViewHanlder()
 	viewhander.RegisterHandler(ginViewGroup)
+}
+
+func configAuthHandler() {
+	authHandler := handler.NewAuthHanler(autService)
+	authHandler.RegisterHandler(ginAuthGroup)
 }
