@@ -1,17 +1,22 @@
 package auth
 
+import (
+	"go.uber.org/zap"
+)
+
 type Service interface {
 	Authorization(user, password string) (bool, error)
 }
 
 type port struct {
+	Logger       *zap.Logger
 	Demo         bool
 	DumyUser     string
 	DumyPassword string
 }
 
-func NewService(Demo bool, Dumyuser, DumyPassword string) Service {
-	return &port{Demo: Demo, DumyUser: Dumyuser, DumyPassword: DumyPassword}
+func NewService(Logger *zap.Logger, Demo bool, Dumyuser, DumyPassword string) Service {
+	return &port{Logger: Logger, Demo: Demo, DumyUser: Dumyuser, DumyPassword: DumyPassword}
 }
 
 func (port *port) Authorization(user, password string) (bool, error) {

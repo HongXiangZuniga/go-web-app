@@ -11,6 +11,7 @@ func Config() {
 	if err != nil {
 		fmt.Println("Not load .env")
 	}
+	configLogger()
 	configService()
 	configHttp()
 }
