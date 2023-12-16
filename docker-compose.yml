@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: test2023
+      MYSQL_DATABASE: user
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./dump:/docker-entrypoint-initdb.d
+   
+
+  redis:
+    image: redis
+    container_name: redis-container
+    ports:
+    
+      - "6379:6379"
+volumes:
+  redis-data:

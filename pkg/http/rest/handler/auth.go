@@ -29,5 +29,10 @@ func (impl *AuthHandler) GetAuth(ctx *gin.Context) {
 		ctx.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	ctx.JSON(200, result)
+	if *result {
+		ctx.JSON(200, result)
+	} else {
+		ctx.JSON(401, gin.H{"error": "User Unauthorized"})
+	}
+
 }

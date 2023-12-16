@@ -18,8 +18,8 @@ func configService() {
 func configAuth() auth.Service {
 	isDemo := os.Getenv("DEMO")
 	if strings.ToLower(isDemo) == "true" {
-		return auth.NewService(logger, true, os.Getenv("DUMMY_USER"), os.Getenv("DUMMY_PASSWORD"))
+		return auth.NewService(AuthSQLRepo, logger, true, os.Getenv("DUMMY_USER"), os.Getenv("DUMMY_PASSWORD"))
 	} else {
-		return auth.NewService(logger, false, "", "")
+		return auth.NewService(AuthSQLRepo, logger, false, "", "")
 	}
 }

@@ -12,6 +12,8 @@ func Config() {
 		fmt.Println("Not load .env")
 	}
 	configLogger()
+	configDataBase()
+	configRepository()
 	configService()
 	configHttp()
 }

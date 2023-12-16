@@ -29,7 +29,7 @@ func configLogger() {
 		level = "error"
 		config.Level.SetLevel(zap.ErrorLevel)
 	}
-	fmt.Println("[CONFIG] LOG_LEVEL CONFIGURED: " + level)
+	fmt.Println("[CONFIG-LOGGER] LOG_LEVEL CONFIGURED: " + level)
 	logger, err = config.Build()
 	if err != nil {
 		panic(err)
