@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.35, for Linux (aarch64)
+-- MySQL dump 10.13  Distrib 8.0.35, for Linux (x86_64)
 --
 -- Host: localhost    Database: user
 -- ------------------------------------------------------
@@ -39,7 +39,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'hongxiang17@gmail.com','24321b7c475e833bd8fbb6becbbda4bd21fa0575e8f5add1a3d500037a2a8926f3acc0abcdeeb87854cab0d7864f26fd37c7869c162895804bef88c9becb1aca','7pobR3MemI54CgUUx9ee4lloj6nbVmXRf5HBCYaNous=',29,'This is description for a simple test');
+INSERT INTO `User` VALUES (1,'hongxiang17@gmail.com','00c42bb82141c4ff23157d05163785bf71487e16291557ace9faa04178b5581bffbe0ef9573e36781ebeb69874667d471579ed816ca9191eec4a306051e15522','7pobR3MemI54CgUUx9ee4lloj6nbVmXRf5HBCYaNous=',29,'This is description for a simple test');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-16 21:59:48
+-- Dump completed on 2023-12-17 19:54:34
