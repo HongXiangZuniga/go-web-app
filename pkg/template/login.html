@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/login.css">
-    <title>Iniciar Sesión</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/login.css">
+  
+  <script src="https://unpkg.com/htmx.org@1.9.9" integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+  
+</style>
 </head>
 <body>
 
-    <form action="#" method="post">
-        <h2>Iniciar Sesión</h2>
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Iniciar Sesión</button>
+<div class="login-container" id="login">
+  <div class="login-card">
+    <h2 class="text-center title">Welcome </h2>
+    <form 
+      hx-ext='json-enc'
+      hx-post="/auth" 
+      hx-target="#login">
+        <div class="form-group">
+          <label for="username" class="text">Email</label>
+          <input type="text" class="form-control" id="username" name="user" placeholder="test@test.cl">
+        </div>
+        <div class="form-group">
+          <label for="password" class="text">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Your Password">
+        </div>
+        <button 
+          type="submit" 
+          class="btn btn-primary btn-block" 
+          id="sumbit-button"
+          >
+            Login
+        </button>
     </form>
+  </div>
+</div>
+
+<!-- Agrega los enlaces a los scripts de Bootstrap y jQuery (si es necesario) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>

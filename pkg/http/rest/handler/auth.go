@@ -30,7 +30,7 @@ func (impl *AuthHandler) GetAuth(ctx *gin.Context) {
 		return
 	}
 	if *result {
-		ctx.JSON(200, result)
+		ctx.Redirect(200, "http://localhost:8080/test")
 	} else {
 		ctx.JSON(401, gin.H{"error": "User Unauthorized"})
 	}

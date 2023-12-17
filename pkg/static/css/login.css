@@ -1,56 +1,35 @@
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #cacaca; /* Gris claro */
-    font-family: 'Arial', sans-serif;
+  background-color: #d8dbed;
 }
 
-form {
-    text-align: center;
-    border: 2px solid #eee8e8; /* Gris más claro */
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    background-color: #eee8e8; /* Gris más claro */
-    max-width: 400px;
-    width: 100%;
-    box-sizing: border-box;
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    box-sizing: border-box;
-    border: 1px solid #eee8e8; /* Gris más claro */
-    border-radius: 4px;
+.login-card {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #fff;
 }
 
-label {
-    color: #333; /* Color de texto más oscuro */
-    font-weight: bold;
-    display: block;
-    margin-bottom: 8px;
+.text {
+  margin: 20px auto 0; 
+  color: #505d99;
 }
 
-button {
-    background-color: #333; /* Color de texto más oscuro */
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+.title {
+  color: #8c9afa;
 }
 
-button:hover {
-    background-color: #555; /* Color de texto más oscuro al pasar el ratón */
-}
-
-h2 {
-    color: #333; /* Color de texto más oscuro para el título */
+#sumbit-button{
+  display: block;
+  margin: 20px auto 0; 
+  background-color:   #a6d2e9;
+  border-color: #a6d2e9;
 }
