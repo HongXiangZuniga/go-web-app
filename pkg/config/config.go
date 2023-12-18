@@ -15,5 +15,6 @@ func Config() {
 	configDataBase()
 	configRepository()
 	configService()
+	configMiddleware()
 	configHttp()
 }

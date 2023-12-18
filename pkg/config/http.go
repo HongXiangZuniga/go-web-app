@@ -39,6 +39,7 @@ func configGinEngine() *gin.Engine {
 	engine.LoadHTMLGlob("pkg/template/*.html")
 	engine.Static("/static/css", "./pkg/static/css")
 	engine.Static("/static/js", "./pkg/static/js")
+	engine.Use(AuthorizeMiddlewareServices.CheckUserSession())
 	return engine
 }
 

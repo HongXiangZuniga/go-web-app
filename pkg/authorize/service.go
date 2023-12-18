@@ -11,7 +11,7 @@ import (
 
 type Service interface {
 	SetHash(email string) (*string, error)
-	authorize(hash string) (*bool, error)
+	Authorize(hash string) (*bool, error)
 }
 
 type port struct {
@@ -36,8 +36,14 @@ func (port *port) SetHash(email string) (*string, error) {
 	return hash, nil
 }
 
-func (port *port) authorize(email string) (*bool, error) {
-	return nil, nil
+func (port *port) Authorize(hash string) (*bool, error) {
+	authorize := true
+	email, err := port.repo.Authorize(hash)
+	if err != nil || email == nil {
+		authorize = false
+		return &authorize, err
+	}
+	return &authorize, nil
 }
 
 func generateRandomHash() (*string, error) {

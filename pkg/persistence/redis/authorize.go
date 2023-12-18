@@ -2,7 +2,6 @@ package redis
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/HongXiangZuniga/login-go/pkg/authorize"
@@ -24,16 +23,15 @@ func (stg *storage) SetHash(hash, email string) error {
 	}
 	return nil
 }
-func (stg *storage) Authorize(hash string) (*bool, error) {
+func (stg *storage) Authorize(hash string) (*string, error) {
 	var email string
 	status := stg.redis.Get(context.Background(), hash)
 	if status.Err() != nil {
 		return nil, status.Err()
 	}
-	err := status.Scan(email)
+	err := status.Scan(&email)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(email)
-	return nil, nil
+	return &email, nil
 }
