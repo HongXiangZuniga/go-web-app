@@ -5,13 +5,16 @@ import (
 	"strings"
 
 	"github.com/HongXiangZuniga/login-go/pkg/auth"
+	"github.com/HongXiangZuniga/login-go/pkg/authorize"
 )
 
 var (
-	autService auth.Service
+	autService       auth.Service
+	authorizeService authorize.Service
 )
 
 func configService() {
+	authorizeService = configAuthorize()
 	autService = configAuth()
 }
 
@@ -22,4 +25,8 @@ func configAuth() auth.Service {
 	} else {
 		return auth.NewService(AuthSQLRepo, logger, false, "", "")
 	}
+}
+
+func configAuthorize() authorize.Service {
+	return authorize.NewService(AuthorizeRedisRepository, logger)
 }

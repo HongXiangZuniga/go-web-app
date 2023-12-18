@@ -1,20 +1,25 @@
 package config
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 	"net/url"
 	"os"
+	"strconv"
 
+	"github.com/go-redis/redis/v8"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 var (
-	sqldb *sql.DB
+	sqldb   *sql.DB
+	redisDB *redis.Client
 )
 
 func configDataBase() {
 	sqldb = configMysqlDatabase()
+	redisDB = ConfigRedisDatabase()
 }
 
 func configMysqlDatabase() *sql.DB {
@@ -42,4 +47,26 @@ func configMysqlDatabase() *sql.DB {
 		os.Exit(1)
 	}
 	return mysqlDB
+}
+
+func ConfigRedisDatabase() *redis.Client {
+	redisURI := os.Getenv("REDIS_URI")
+	redisDB := os.Getenv("REDIS_DB")
+	redisPASS := os.Getenv("REDIS_PASSWORD")
+	db2, err := strconv.Atoi(redisDB)
+	if err != nil {
+		fmt.Println("[CONFIG-DATABASE] Failed Redis: " + err.Error())
+		os.Exit(1)
+	}
+	client := redis.NewClient(&redis.Options{
+		Addr:     redisURI,
+		Password: redisPASS, // no password set
+		DB:       db2,       // use default DB
+	})
+	status := client.Ping(context.Background())
+	if status.Err() != nil {
+		fmt.Println("[CONFIG-DATABASE] Failed Redis: " + err.Error())
+		os.Exit(2)
+	}
+	return client
 }

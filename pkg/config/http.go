@@ -72,7 +72,7 @@ func configViewHandler() {
 }
 
 func configAuthHandler() {
-	authHandler := handler.NewAuthHanler(autService)
+	authHandler := handler.NewAuthHanler(authorizeService, autService, logger)
 	authHandler.RegisterHandler(ginAuthGroup)
 }
 func configProfileHandler() {
