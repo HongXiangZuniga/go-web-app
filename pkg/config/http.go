@@ -8,10 +8,11 @@ import (
 )
 
 var (
-	ginEngine      *gin.Engine
-	ginStatusGroup *gin.RouterGroup
-	ginViewGroup   *gin.RouterGroup
-	ginAuthGroup   *gin.RouterGroup
+	ginEngine       *gin.Engine
+	ginStatusGroup  *gin.RouterGroup
+	ginViewGroup    *gin.RouterGroup
+	ginAuthGroup    *gin.RouterGroup
+	ginProfileGroup *gin.RouterGroup
 )
 
 func configHttp() {
@@ -19,9 +20,11 @@ func configHttp() {
 	ginStatusGroup = configStatusGroup()
 	ginViewGroup = configViewGroup()
 	ginAuthGroup = configAuthGroup()
+	ginProfileGroup = configProfileGroup()
 	configStatusHandler()
 	configViewHandler()
 	configAuthHandler()
+	configProfileHandler()
 }
 
 func configGinEngine() *gin.Engine {
@@ -54,6 +57,9 @@ func configViewGroup() *gin.RouterGroup {
 func configAuthGroup() *gin.RouterGroup {
 	return ginEngine.Group("/auth")
 }
+func configProfileGroup() *gin.RouterGroup {
+	return ginEngine.Group("/profile")
+}
 
 func configStatusHandler() {
 	statusHandler := handler.NewStatusHandler()
@@ -68,4 +74,8 @@ func configViewHandler() {
 func configAuthHandler() {
 	authHandler := handler.NewAuthHanler(autService)
 	authHandler.RegisterHandler(ginAuthGroup)
+}
+func configProfileHandler() {
+	ProfileHandler := handler.NewProfileHandler()
+	ProfileHandler.RegisterHandler(ginProfileGroup)
 }
