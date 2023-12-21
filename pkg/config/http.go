@@ -21,10 +21,13 @@ func configHttp() {
 	ginViewGroup = configViewGroup()
 	ginAuthGroup = configAuthGroup()
 	ginProfileGroup = configProfileGroup()
+	ginViewGroup.Use(AuthorizeMiddlewareServices.CheckUserSession())
+	ginProfileGroup.Use(AuthorizeMiddlewareServices.CheckUserSession())
 	configStatusHandler()
 	configViewHandler()
 	configAuthHandler()
 	configProfileHandler()
+
 }
 
 func configGinEngine() *gin.Engine {
@@ -39,7 +42,6 @@ func configGinEngine() *gin.Engine {
 	engine.LoadHTMLGlob("pkg/template/*.html")
 	engine.Static("/static/css", "./pkg/static/css")
 	engine.Static("/static/js", "./pkg/static/js")
-	engine.Use(AuthorizeMiddlewareServices.CheckUserSession())
 	return engine
 }
 

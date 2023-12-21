@@ -43,8 +43,8 @@ func (impl *AuthHandler) GetAuth(ctx *gin.Context) {
 			ctx.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
-		ctx.SetCookie("session", *hash, 300, "/", "localhost:8080", false, true)
-		ctx.Redirect(301, "/profile")
+		ctx.SetCookie("session", *hash, 300, "/", "localhost", false, true)
+		ctx.JSON(200, nil)
 	} else {
 		ctx.JSON(401, gin.H{"error": "User Unauthorized"})
 	}

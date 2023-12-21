@@ -41,6 +41,9 @@ func (port *port) Authorize(hash string) (*bool, error) {
 	email, err := port.repo.Authorize(hash)
 	if err != nil || email == nil {
 		authorize = false
+		if err.Error() == "redis: nil" {
+			return &authorize, nil
+		}
 		return &authorize, err
 	}
 	return &authorize, nil

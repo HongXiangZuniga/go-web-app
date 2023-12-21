@@ -20,4 +20,3 @@ func (impl *Viewhandler) RegisterHandler(router *gin.RouterGroup) {
 func (impl *Viewhandler) GetLogin(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "login.html", gin.H{})
 }
-
