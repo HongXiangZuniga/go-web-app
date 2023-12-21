@@ -1,14 +1,14 @@
 package config
 
 import (
-	"github.com/HongXiangZuniga/login-go/pkg/auth"
+	"github.com/HongXiangZuniga/login-go/pkg/authentication"
 	"github.com/HongXiangZuniga/login-go/pkg/authorize"
 	"github.com/HongXiangZuniga/login-go/pkg/persistence/mysql"
 	"github.com/HongXiangZuniga/login-go/pkg/persistence/redis"
 )
 
 var (
-	AuthSQLRepo              auth.Repository
+	AuthSQLRepo              authentication.Repository
 	AuthorizeRedisRepository authorize.RedisRepository
 )
 
@@ -17,7 +17,7 @@ func configRepository() {
 	AuthorizeRedisRepository = configAuthorizeRedisRepository()
 }
 
-func configAuthSQLRepo() auth.Repository {
+func configAuthSQLRepo() authentication.Repository {
 	return mysql.NewAuthRepository(sqldb)
 }
 

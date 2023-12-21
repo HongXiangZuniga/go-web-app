@@ -3,14 +3,14 @@ package mysql
 import (
 	"database/sql"
 
-	"github.com/HongXiangZuniga/login-go/pkg/auth"
+	"github.com/HongXiangZuniga/login-go/pkg/authentication"
 )
 
 type storage struct {
 	db *sql.DB
 }
 
-func NewAuthRepository(db *sql.DB) auth.Repository {
+func NewAuthRepository(db *sql.DB) authentication.Repository {
 	return &storage{db: db}
 }
 

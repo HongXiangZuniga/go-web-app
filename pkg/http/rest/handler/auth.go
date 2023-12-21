@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com/HongXiangZuniga/login-go/pkg/auth"
+	"github.com/HongXiangZuniga/login-go/pkg/authentication"
 	"github.com/HongXiangZuniga/login-go/pkg/authorize"
 	http "github.com/HongXiangZuniga/login-go/pkg/http/rest"
 	"github.com/gin-gonic/gin"
@@ -10,14 +10,14 @@ import (
 
 type AuthHandler struct {
 	authorizeService authorize.Service
-	authService      auth.Service
+	authService      authentication.Service
 	logger           *zap.Logger
 }
 
-func NewAuthHanler(AuthorizeService authorize.Service, authService auth.Service, logger *zap.Logger) GinHandler {
+func NewAuthHanler(authorizeService authorize.Service, authenticationService authentication.Service, logger *zap.Logger) GinHandler {
 	return &AuthHandler{
-		authorizeService: AuthorizeService,
-		authService:      authService,
+		authorizeService: authorizeService,
+		authService:      authenticationService,
 		logger:           logger}
 }
 

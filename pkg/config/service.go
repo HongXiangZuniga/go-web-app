@@ -4,12 +4,12 @@ import (
 	"os"
 	"strings"
 
-	"github.com/HongXiangZuniga/login-go/pkg/auth"
+	"github.com/HongXiangZuniga/login-go/pkg/authentication"
 	"github.com/HongXiangZuniga/login-go/pkg/authorize"
 )
 
 var (
-	autService       auth.Service
+	autService       authentication.Service
 	authorizeService authorize.Service
 )
 
@@ -18,12 +18,12 @@ func configService() {
 	autService = configAuth()
 }
 
-func configAuth() auth.Service {
+func configAuth() authentication.Service {
 	isDemo := os.Getenv("DEMO")
 	if strings.ToLower(isDemo) == "true" {
-		return auth.NewService(AuthSQLRepo, logger, true, os.Getenv("DUMMY_USER"), os.Getenv("DUMMY_PASSWORD"))
+		return authentication.NewService(AuthSQLRepo, logger, true, os.Getenv("DUMMY_USER"), os.Getenv("DUMMY_PASSWORD"))
 	} else {
-		return auth.NewService(AuthSQLRepo, logger, false, "", "")
+		return authentication.NewService(AuthSQLRepo, logger, false, "", "")
 	}
 }
 
