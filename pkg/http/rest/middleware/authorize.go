@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/HongXiangZuniga/login-go/pkg/authorize"
@@ -27,59 +26,33 @@ const (
 	LANDING_URL = "/profile"
 )
 
-/*
-	func (port *port) CheckUserSession() gin.HandlerFunc {
-		return func(ctx *gin.Context) {
-			if ctx.Request.URL.Path == LOGIN_URL {
-				hash, _ := ctx.Cookie("session")
-				authorize, err := port.authorizeService.Authorize(hash)
-				if err != nil && err.Error() != "redis: nil" {
-					port.logger.Error(err.Error())
-				}
-				if *authorize {
-					ctx.Redirect(http.StatusMovedPermanently, LANDING_URL)
-					return
-				}
-			} else {
-				hash, _ := ctx.Cookie("session")
-				authorize, err := port.authorizeService.Authorize(hash)
-				if err != nil {
-					port.logger.Error(err.Error())
-				}
-				if !*authorize {
-					ctx.Redirect(http.StatusMovedPermanently, LOGIN_URL)
-					return
-				}
+func (port *port) CheckUserSession() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		switch ctx.Request.URL.Path {
+		case LOGIN_URL:
+			hash, _ := ctx.Cookie("session")
+			authorize, err := port.authorizeService.Authorize(hash)
+			if err != nil && err.Error() != "redis: nil" {
+				port.logger.Error(err.Error())
+			}
+			if *authorize {
+				ctx.Redirect(http.StatusMovedPermanently, LANDING_URL)
+				return
+			}
+			ctx.Next()
+		case "/auth", "/static" + ctx.Request.URL.Path:
+			ctx.Next()
+		default:
+			hash, _ := ctx.Cookie("session")
+			authorize, err := port.authorizeService.Authorize(hash)
+			if err != nil {
+				port.logger.Error(err.Error())
+			}
+			if !*authorize {
+				ctx.Redirect(http.StatusMovedPermanently, LOGIN_URL)
+				return
 			}
 			ctx.Next()
 		}
-	}
-*/
-func (port *port) CheckUserSession() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		hash, err := ctx.Cookie("session")
-		if err != nil && !errors.Is(err, http.ErrNoCookie) {
-			port.logger.Error(err.Error())
-			ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
-			return
-		}
-		isLoginURL := ctx.Request.URL.Path == LOGIN_URL
-		authorize, err := port.authorizeService.Authorize(hash)
-		if err != nil {
-			port.logger.Error(err.Error())
-			ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
-			return
-		}
-		if isLoginURL && *authorize {
-			ctx.Redirect(http.StatusMovedPermanently, LANDING_URL)
-			ctx.AbortWithStatus(http.StatusMovedPermanently)
-			return
-		}
-		if !isLoginURL && !*authorize {
-			ctx.Redirect(http.StatusMovedPermanently, LOGIN_URL)
-			ctx.AbortWithStatus(http.StatusMovedPermanently)
-			return
-		}
-		ctx.Next()
 	}
 }
