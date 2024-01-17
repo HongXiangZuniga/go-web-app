@@ -35,8 +35,13 @@ func (port *port) CheckUserSession() gin.HandlerFunc {
 			if err != nil && err.Error() != "redis: nil" {
 				port.logger.Error(err.Error())
 			}
+			if hash == "" || (err != nil && err.Error() == "redis: nil") {
+				ctx.Next()
+				return
+			}
 			if *authorize {
-				ctx.Redirect(http.StatusMovedPermanently, LANDING_URL)
+				ctx.Redirect(http.StatusFound, LANDING_URL)
+				ctx.Abort()
 				return
 			}
 			ctx.Next()
@@ -49,7 +54,8 @@ func (port *port) CheckUserSession() gin.HandlerFunc {
 				port.logger.Error(err.Error())
 			}
 			if !*authorize {
-				ctx.Redirect(http.StatusMovedPermanently, LOGIN_URL)
+				ctx.Redirect(http.StatusFound, LOGIN_URL)
+				ctx.Abort()
 				return
 			}
 			ctx.Next()
