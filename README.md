@@ -6,7 +6,7 @@ This project is a web application developed in Go. It allows users to access and
 
 Before running the application, make sure to configure the following environment variables in a `.env` file:
 
-
+'''
 DEMO=false
 DUMMY_USER=
 DUMMY_PASSWORD=
@@ -19,3 +19,4 @@ MYSQL_LOCATION=
 REDIS_URI=
 REDIS_DB=
 REDIS_PASSWORD=
+'''
