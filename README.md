@@ -1,3 +1,12 @@
+# Go Web App
+
+This project is a web application developed in Go. It allows users to access and interact with various features.
+
+## Configuration
+
+Before running the application, make sure to configure the following environment variables in a `.env` file:
+
+
 DEMO=false
 DUMMY_USER=
 DUMMY_PASSWORD=
