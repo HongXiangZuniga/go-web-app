@@ -12,8 +12,8 @@ const app = Vue.createApp({
       if (!this.Email || !this.Password) {
         Swal.fire({
           icon: "error",
-          title: "Oops...",
-          text: "Por favor, ingresa tu correo electrónico y contraseña.",
+          title: "Error",
+          text: "Please enter your email and password.",
         });
         return;
       }
@@ -34,14 +34,27 @@ const app = Vue.createApp({
           const data = await response.json();
           Swal.fire({
             icon: "error",
-            title: "Oops...",
-            text: data.error || "Error inesperado",
+            title: "Error",
+            text: data.error || "Unexpected error",
           });
         }
       } catch (error) {
-        console.error("Error al realizar la solicitud:", error);
+        console.error("Error making request:", error);
       }
     },
+    handleEnterKey(event) {
+      if (event.key === 'Enter') {
+        this.login();
+      }
+    },
+  },
+  mounted() {
+    // Add a listener for the keyup event on the document
+    document.addEventListener('keyup', this.handleEnterKey);
+  },
+  beforeUnmount() {
+    // Remove the listener when the Vue instance is destroyed
+    document.removeEventListener('keyup', this.handleEnterKey);
   },
 });
 
